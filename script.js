@@ -1,13 +1,16 @@
 function World(height, width) {
-  this.cellSize = 10;
+  this.cellSize = 8;
   this.i = 0;
   this.height = height;
   this.width = width;
   this.parse = function(string){
     //return([0,0, 1,5,4, 2,5,4, 3]);
     //return([0, 1,4,7, 1,7,1, 3]); // oscilator
-    //return([ 78 ,84 ,51 ,9 ,49 ,26 ,30 ,93 ,61 ,50 ,15 ,1 ,41 ,36 ,35 ,56 ,17 ,39 ,11 ,67 ,77 ,94 ,66 ,21 ,32 ,43 ,9 ,71 ,30 ,13 ,22 ,47 ,75 ,44 ,35 ,62 ,98 ,83 ,5 ,53 ,29 ,27 ,3 ,70 ,57 ,12 ,10 ,40 ,68 ,81 ,74 ,88 ,90 ,92 ]);
-    return([ 66 ,32 ,32 ,43 ,9 ,71 ,60 ,13 ,22 ,47 ,75 ,44 ,35 ,62 ,98 ,83 ,5 ,53 ,29 ,27 ,3 ,70 ,57 ,18 ,10 ,40 ,68 ,81 ,74 ,88 ,90 ,92 ]);
+    //return([ 30 ,93 ,61 ,50 ,15 ,5 ,43 ,9 ,71 ,30 ,13 ,22 ,47 ,75 ,44 ,35 ,62 ,98 ,83 ,5 ,53 ,29 ,27 ,3 ,70 ,57 ,58 ,10 ,40 ,68 ,81 ,74 ,102 ,90 ,92 ]); // spaceship
+    //return([ 30 ,100 ,61 ,50 ,15 ,5 ,43 ,9 ,75 ,30 ,13 ,22 ,47 ,75 ,44 ,35 ,62 ,98 ,83 ,7 ,53 ,29 ,27 ,3 ,70 ,57 ,58 ,10 ,40 ,68 ,81 ,74 ,102 ,90 ,92 ]); // spaceship 2
+    //return([ 30 ,100 ,61 ,50 ,15 ,5 ,43 ,9 ,75 ,30 ,13 ,22 ,51 ,75 ,44 ,35 ,66 ,98 ,83 ,7 ,53 ,29 ,27 ,3 ,70 ,57 ,58 ,10 ,40 ,68 ,81 ,74 ,102 ,90 ,92 ]); // spaceship turbo
+    return([ 30 ,100 ,61 ,50 ,15 ,5 ,43 ,9 ,75 ,30 ,13 ,22 ,51 ,75 ,44 ,35 ,66 ,98 ,83 ,7 ,53 ,29 ,27 ,3 ,70 ,7 ,58 ,10 ,40 ,68 ,81 ,77 ,102 ,90 ,92 ]); // stepladder turbo
+    //return([ 32 ,32 ,43 ,9 ,71 ,60 ,13 ,22 ,47 ,75 ,44 ,35 ,62 ,98 ,83 ,5 ,53 ,29 ,27 ,3 ,70 ,57 ,18 ,10 ,40 ,68 ,81 ,74 ,88 ,90 ,92 ]); // two racing cars
     //return([30,12,0,26]);
   };
   var dna = this.parse(".....x");
@@ -37,8 +40,8 @@ function World(height, width) {
       .attr({
         x: function(d){return d.x*th.cellSize},
         y: function(d){return d.y*th.cellSize},
-        width:  this.cellSize-0.5,
-        height: this.cellSize-0.5,
+        width:  this.cellSize-0.3,
+        height: this.cellSize-0.3,
       })
       .attr("fill", function(d){return d.color});
     cellData
