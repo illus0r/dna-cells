@@ -4,14 +4,11 @@ function World(height, width) {
   this.height = height;
   this.width = width;
   this.parse = function(string){
-    //return([0,0, 1,5,4, 2,5,4, 3]);
-    //return([0, 1,4,7, 1,7,1, 3]); // oscilator
-    //return([ 30 ,93 ,61 ,50 ,15 ,5 ,43 ,9 ,71 ,30 ,13 ,22 ,47 ,75 ,44 ,35 ,62 ,98 ,83 ,5 ,53 ,29 ,27 ,3 ,70 ,57 ,58 ,10 ,40 ,68 ,81 ,74 ,102 ,90 ,92 ]); // spaceship
-    //return([ 30 ,100 ,61 ,50 ,15 ,5 ,43 ,9 ,75 ,30 ,13 ,22 ,47 ,75 ,44 ,35 ,62 ,98 ,83 ,7 ,53 ,29 ,27 ,3 ,70 ,57 ,58 ,10 ,40 ,68 ,81 ,74 ,102 ,90 ,92 ]); // spaceship 2
-    //return([ 30 ,100 ,61 ,50 ,15 ,5 ,43 ,9 ,75 ,30 ,13 ,22 ,51 ,75 ,44 ,35 ,66 ,98 ,83 ,7 ,53 ,29 ,27 ,3 ,70 ,57 ,58 ,10 ,40 ,68 ,81 ,74 ,102 ,90 ,92 ]); // spaceship turbo
-    return([ 30 ,100 ,61 ,50 ,15 ,5 ,43 ,9 ,75 ,30 ,13 ,22 ,51 ,75 ,44 ,35 ,66 ,98 ,83 ,7 ,53 ,29 ,27 ,3 ,70 ,7 ,58 ,10 ,40 ,68 ,81 ,77 ,102 ,90 ,92 ]); // stepladder turbo
-    //return([ 32 ,32 ,43 ,9 ,71 ,60 ,13 ,22 ,47 ,75 ,44 ,35 ,62 ,98 ,83 ,5 ,53 ,29 ,27 ,3 ,70 ,57 ,18 ,10 ,40 ,68 ,81 ,74 ,88 ,90 ,92 ]); // two racing cars
-    //return([30,12,0,26]);
+    //return([320,516,220,320,416,420,120,416,420,620,416,421,621,816,920,020,219]); // cascade
+    //return([320,416,420,120,406,420,620,416,421,621,816,920,020,219]); // cascade
+    //return([120,906,420,620,416,421,920,020,219]); // cascade
+    //return([ 	239,	234,	650, 100,	757,	36,	676,	266, 72,	453,	764,	72,	141, 738,	756,	484,	35,	947, 157,	538,	223,	507,	757, 995,	175,	82,	263,	270, 533,	372,	19,	912,	708, 836,	355,	432,	176,	349, 621,	242,	301,	825,	533, 871,	129,	605,	270,	491, 691,	73,	308,	951,	927, 599,	245,	647,	937,	65, 413,	672,	2,	995,	966, 741,	691,	971,	558,	596, 622,	723,	526,	532,	590, 652,	597,	306,	371,	191, 278,	641,	385,	407,	947, 121,	234,	186,	14,	577, 950,	585,	995,	127,	600, 616,	459,	558,	549,	274, 670,	565,	106,	870,	830, 241,	634,	133,	516,	790 ]); // cascade
+    return([	597,	306,	371,	191, 278,	641,	385,	407,	947, 121,	234,	186,	14,	577, 950,	585,	995,	428,	600, 616,	459,	558,	549,	274, 670,	565,	106,	870,	830, 241,	634,	133,	516,	790 ]); // fireflys
   };
   var dna = this.parse(".....x");
   this.animal = new Animal(dna,50,50);
@@ -116,53 +113,51 @@ function Cell(dna,cursor,x,y){
     var isDivided = false;
     //console.log("before",this);
     //this.x=this.x+1;
-    switch (this.dna[this.cursor] % 7){
-      case 0:
-        // idle
-        console.log("idle");
-        break;
-      case 1:
+    var dnaCurrent = this.dna[this.cursor];
+    if(dnaCurrent<100){
         // divide up
         console.log("↑");
         dx =  0;
         dy = -1;
         isDivided = true;
-        break;
-      case 2:
+    } else
+    if(dnaCurrent<200){
         // divide right
         console.log("→");
         dx =  1;
         dy =  0;
         isDivided = true;
-        break;
-      case 3:
+    } else
+    if(dnaCurrent<300){
         // divide down
         console.log("↓");
         dx =  0;
         dy =  1;
         isDivided = true;
-        break;
-      case 4:
+    } else
+    if(dnaCurrent<400){
         // divide left
         console.log("←");
         dx = -1;
         dy =  0;
         isDivided = true;
-        break;
-      case 5:
+    } else
+    if(dnaCurrent<500){
         // goto
         this.cursor = this.dna[this.cursor] - 1; // to compensate later increase
         this.normalizeCursor();
         console.log("goto", this.cursor+1);
-        break;
-      case 6:
-        // die
-        this.isDead = true;
-        break;
+    } else
+    if(dnaCurrent<600){
+      //idle
+    } else
+    {
+      // die
+      this.isDead = true;
     }
     if(isDivided){
-      cellsNew = [new Cell(this.dna, this.dna[this.cursor] % this.dna.length, this.x+dx, this.y+dy)];
-      //this.cursor = this.cursor + 1;
+      cellsNew = [new Cell(this.dna, this.dna[this.cursor] % 100, this.x+dx, this.y+dy)];
+      //this.cursor = this.cursor + 1
       //this.normalizeCursor();
       //this.isDead = true;
     }
